@@ -3,6 +3,8 @@ Water[][] water = new Water[25][5];
 Platform[][] platforms = new Platform[7][5];
 Street[][] streets = new Street[25][4];
 Cars[][] cars = new Cars[8][4];
+Grass[][] grass = new Grass[25][2];
+LilyPad[] lilypads = new LilyPad[5];
 Collision coll = new Collision();
 
 void setup() {
@@ -21,7 +23,7 @@ void setup() {
   for (int y = 0; y < 4; y++) { 
   for (int i = 0; i < streets.length; i++){
     streets[i][y] = new Street(i * 128,y * 128 + 900);
-
+    
   }
   }
   
@@ -38,6 +40,19 @@ void setup() {
 
   }
   } 
+
+  for (int i = 0; i < lilypads.length; i++){
+    lilypads[i] = new LilyPad(i * 128 * 4 + 220,134);
+
+  }
+  
+  
+  for (int y = 0; y < 2; y++) { 
+  for (int i = 0; i < grass.length; i++){
+    grass[i][y] = new Grass(i * 128,y * 128 + 4);
+
+  }
+  } 
 }
 
 
@@ -48,7 +63,6 @@ void draw() {
   for (int y = 0; y < 4; y++) { 
   for (int i = 0; i < streets.length; i++){
     streets[i][y].display();
-
   }
   }
   
@@ -72,6 +86,17 @@ void draw() {
     platforms[i][y].display();
     
   }
+  }
+  
+  for (int y = 0; y < 2; y++) { 
+  for (int i = 0; i < grass.length; i++){
+    grass[i][y].display();
+    
+  }
+  }
+  
+  for (int i = 0; i < lilypads.length; i++) {
+    lilypads[i].display();
   }
   
   collison();
@@ -108,6 +133,16 @@ void collison() {
   }
   }
   
+  for (int i = 0; i < lilypads.length; i++) {
+    if (coll.col(player.pos,lilypads[i].pos,100)) {
+      player.on_platform = true;
+      lilypads[i].img = loadImage("data/Images/LilyPadPlayer.png");
+      player.pos = new PVector(1100,1400);
+    } else {
+      player.on_platform = false; 
+    }
+  }
+  
   for (int y = 0; y < 5; y++) { 
   for (int i = 0; i < water.length; i++){
     if (coll.col(player.pos,water[i][y].pos,30) && player.on_platform == false && player.velocity.x == 0) {
@@ -120,7 +155,15 @@ void collison() {
   
   for (int y = 0; y < 4; y++) { 
   for (int i = 0; i < cars.length; i++){
-    if (coll.col(player.pos,cars[i][y].pos,30)) {
+    if (coll.col(player.pos,cars[i][y].pos,70)) {
+      player.dead = true;
+    }  
+  }
+  }
+  
+  for (int y = 0; y < 2; y++) { 
+  for (int i = 0; i < grass.length; i++){
+    if (coll.col(player.pos,grass[i][y].pos,30) && player.on_platform == false) {
       player.dead = true;
     }  
   }
