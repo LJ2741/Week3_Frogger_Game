@@ -5,8 +5,13 @@ class Cars {
   
   Cars(int x,int y) {
     pos = new PVector(x,y);
-    velocity = new PVector(4,0);
-    img = loadImage("data/Images/car.png");
+    if (y == 1028 || y == 1284) {
+      img = loadImage("data/Images/carFlipped.png");
+      velocity = new PVector(-2,0);
+    } else {
+      img = loadImage("data/Images/car.png");
+      velocity = new PVector(4,0);
+    }
   }
   
   

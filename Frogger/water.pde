@@ -8,7 +8,7 @@ class Water {
     img = loadImage("data/Images/Water.png");
     pos = new PVector(x,y);
     if (y == 260 || y == 516 || y == 772) {
-      velocity = new PVector(2,0);
+      velocity = new PVector(4,0);
     } else {
       velocity = new PVector(-2,0);
     }

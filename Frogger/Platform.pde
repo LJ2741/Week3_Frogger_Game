@@ -7,7 +7,7 @@ class Platform {
     pos = new PVector(x,y);
     img = loadImage("data/Images/Platform.png");
     if (y == 260 || y == 516 || y == 772) {
-      velocity = new PVector(2,0);
+      velocity = new PVector(4,0);
     } else {
       velocity = new PVector(-2,0);
     }
