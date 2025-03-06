@@ -7,11 +7,13 @@ Grass[][] grass = new Grass[25][2];
 LilyPad[] lilypads = new LilyPad[5];
 Collision coll = new Collision();
 int platform_change = 5;
-
+int savedTime = millis();
+int totalTime = 30000;
 
 void setup() {
   fullScreen();
   imageMode(CENTER);
+  textMode(CENTER);
   background(0);
   player = new Player();
   SpawnTiles();
@@ -20,7 +22,6 @@ void setup() {
 
 void draw() {
   background(0);
-  
   
   for (int y = 0; y < 4; y++) { 
   for (int i = 0; i < streets.length; i++){
@@ -61,11 +62,12 @@ void draw() {
     lilypads[i].display();
   }
   
+  timer();
   collison();
   player.display();
 }
 
-void keyPressed() {
+void keyReleased() {
     if (key == 'a') {
       player.pos.x -= 50;
     
@@ -98,6 +100,7 @@ void collison() {
   for (int i = 0; i < lilypads.length; i++) {
     if (coll.col(player.pos,lilypads[i].pos,100)) {
       player.on_platform = true;
+      savedTime = millis();
       platform_change += 1;
       SpawnTiles();
       lilypads[i].img = loadImage("data/Images/LilyPadPlayer.png");
@@ -180,4 +183,12 @@ void SpawnTiles() {
   } 
 }
   
+void timer() {
+  int passedTime = millis() - savedTime;
+  textSize(75);
+  text("Time: " + str(totalTime/1000 - passedTime/1000),15,55);
+  if (passedTime > totalTime) {
+    player.dead = true;
+  }
+}
   
