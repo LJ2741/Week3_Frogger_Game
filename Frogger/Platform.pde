@@ -2,7 +2,6 @@ class Platform {
   
   PVector pos,velocity;
   PImage img;
-  
   Platform(float x,float y) {
     pos = new PVector(x,y);
     img = loadImage("data/Images/Platform.png");
@@ -16,8 +15,8 @@ class Platform {
   
   void display() {
     pos.add(velocity);
-    image(img,pos.x,pos.y);
     movement();
+    image(img,pos.x,pos.y);
     
   }
   
@@ -30,5 +29,5 @@ class Platform {
       pos.x = -100;
     }
   }
-    
+      
 }
