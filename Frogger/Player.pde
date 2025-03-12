@@ -7,7 +7,7 @@ class Player {
   int score = 0;
   JSONObject json;
   Player() {
-    pos = new PVector(1150,1410);
+    pos = new PVector(width/2 + 32,740);
     velocity = new PVector(0,0);
     img = loadImage("data/Images/PlayerUp.png");
     dead = false;
@@ -25,7 +25,7 @@ class Player {
         velocity = new PVector(0,0);
       }
       
-      if (pos.x < 0 || pos.x > displayWidth || pos.y < 0 || pos.y > displayHeight) {
+      if (pos.x < 0 || pos.x > width || pos.y < 0 || pos.y > height) {
         dead = true;
       }
     } else {
@@ -36,19 +36,19 @@ class Player {
   
   void movement() {
     if (key == 'a') {
-      pos.x -= 128;
+      pos.x -= 64;
       player.img = loadImage("data/Images/PlayerLeft.png");
 
     } else if (key == 'w') {
-      pos.y -= 128;
+      pos.y -= 64;
       img = loadImage("data/Images/PlayerUp.png");
     
     } else if (key == 'd') {
-      pos.x += 128;
+      pos.x += 64;
       img = loadImage("data/Images/PlayerRight.png");
     
     } else if (key == 's') {
-      pos.y += 128;
+      pos.y += 64;
       img = loadImage("data/Images/PlayerDown.png");
       
     }

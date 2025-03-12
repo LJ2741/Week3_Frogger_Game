@@ -25,10 +25,10 @@ class Cars {
   
   void movement() {
     if (pos.x < -250) {
-      pos.x = displayWidth + 100;
+      pos.x = width + 100;
     }
     
-    if (pos.x > displayWidth + 250) {
+    if (pos.x > width + 250) {
       pos.x = -100;
     }
   }

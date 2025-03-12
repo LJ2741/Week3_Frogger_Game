@@ -5,7 +5,7 @@ class Platform {
   Platform(float x,float y) {
     pos = new PVector(x,y);
     img = loadImage("data/Images/Platform.png");
-    if (y == 260 || y == 516 || y == 772) {
+    if (y == 289 || y == 289 + (64 * 2)) {
       velocity = new PVector(4,0);
     } else {
       velocity = new PVector(-2,0);
@@ -22,10 +22,10 @@ class Platform {
   
   void movement() {
     if (pos.x < -250) {
-      pos.x = displayWidth + 100;
+      pos.x = width + 100;
     }
     
-    if (pos.x > displayWidth + 250) {
+    if (pos.x > width + 250) {
       pos.x = -100;
     }
   }

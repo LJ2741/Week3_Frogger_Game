@@ -7,7 +7,7 @@ class Water {
   Water(float x,float y) {
     img = loadImage("data/Images/Water.png");
     pos = new PVector(x,y);
-    if (y == 260 || y == 516 || y == 772) {
+    if (y == 289 || y == 289 + (64 * 2)) {
       velocity = new PVector(4,0);
     } else {
       velocity = new PVector(-2,0);
@@ -23,12 +23,12 @@ class Water {
   }
   
   void movement() {
-    if (pos.x < -250) {
-      pos.x = displayWidth + 100;
+    if (pos.x < -65) {
+      pos.x = width + 65;
     }
     
-    if (pos.x > displayWidth + 250) {
-      pos.x = -100;
+    if (pos.x > width + 65) {
+      pos.x = -65;
     }
   }
   
