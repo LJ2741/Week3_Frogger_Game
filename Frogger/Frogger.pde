@@ -14,6 +14,7 @@ int savedTime = millis();
 int totalTime = 45000;
 int lilypads_left; // keeps count of remaining lilypads
 int level = 1;
+int lives = 5;
 void setup() {
   size(1000,800);
   textSize(40);
@@ -116,7 +117,7 @@ void collison() {
   for (int y = 0; y < 5; y++) { 
   for (int i = 0; i < water.length; i++){
     if (coll.col(player.pos,water[i][y].pos,30) && player.on_platform == false && player.velocity.x == 0) {
-      player.dead = true;
+      playerDeath();
     }  
   }
   }
@@ -126,7 +127,7 @@ void collison() {
   for (int y = 0; y < 3; y++) { 
   for (int i = 0; i < cars.length; i++){
     if (coll.col(player.pos,cars[i][y].pos,20)) {
-      player.dead = true;
+      playerDeath();
     }  
   }
   }
@@ -134,7 +135,7 @@ void collison() {
   for (int y = 0; y < 4; y++) { 
   for (int i = 0; i < grass.length; i++){
     if (coll.col(player.pos,grass[i][y].pos,30) && player.on_platform == false) {
-      player.dead = true;
+      playerDeath();
     }  
   }
   }
@@ -183,15 +184,17 @@ void SpawnTiles() {
 // a timer function that kills the player if they take too long
 void timer() {
   int passedTime = millis() - savedTime;
-  text("Time: " + str(totalTime/1000 - passedTime/1000),170,30);
+  text("Time: " + str(totalTime/1000 - passedTime/1000),150,30);
   if (passedTime > totalTime) {
-    player.dead = true;
+    playerDeath();
   }
 }
 
 void scoreDisplay() {
   textAlign(CENTER);
   text("Score: " + str(player.score),width/2,30);
+  textAlign(LEFT);
+  text("Lives: " + str(lives),3,height - 30);
   textAlign(RIGHT);
   text("Highscore: " + str(player.highscore),width,30);
   text("Level: " + str(level),width - 30,height - 30);
@@ -201,7 +204,20 @@ void levelTracking() {
   if (lilypads_left == 5) {
     lilypads_left = 0;
     level += 1;
+    for (int i = 0; i < lilypads.length; i++){ // resets all lily pad tiles
+      lilypads[i] = new LilyPad(i * 64 * 3 + 120,162); 
+    }
+    
   }
 }
   
-  
+void playerDeath() {
+  lives -= 1;
+  savedTime = millis();
+  if (lives <= 0) {
+    player.dead = true;
+    player.pos = new PVector(-1000,1000);
+  } else {
+    player.pos = new PVector(width/2 + 32,740);
+  }
+}
