@@ -80,8 +80,11 @@ void draw() {
 }
 // allows to player to only move when a button is pressed and then release to make them slower
 void keyReleased() {
+  if (player.dead == false) {
     player.movement();
+  }
 }
+
 
 void collison() {
   
@@ -126,7 +129,7 @@ void collison() {
   // kills player of they hit a car
   for (int y = 0; y < 3; y++) { 
   for (int i = 0; i < cars.length; i++){
-    if (coll.col(player.pos,cars[i][y].pos,20)) {
+    if (coll.col(player.pos,cars[i][y].pos,25)) {
       playerDeath();
     }  
   }
@@ -212,12 +215,13 @@ void levelTracking() {
 }
   
 void playerDeath() {
-  lives -= 1;
-  savedTime = millis();
+  savedTime = millis(); // resets timer
   if (lives <= 0) {
     player.dead = true;
     player.pos = new PVector(-1000,1000);
   } else {
+    lives -= 1;
+    player.img = loadImage("data/Images/PlayerUp.png");
     player.pos = new PVector(width/2 + 32,740);
   }
 }

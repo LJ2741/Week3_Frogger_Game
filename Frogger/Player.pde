@@ -21,16 +21,18 @@ class Player {
       pos.add(velocity);
       image(img,pos.x,pos.y);
       
-      if (on_platform == false){
-        velocity = new PVector(0,0);
+      if (player.pos.x < 0 || player.pos.x > width || player.pos.y < 0 || player.pos.y > height) {
+        playerDeath();
       }
       
-      if (pos.x < 0 || pos.x > width || pos.y < 0 || pos.y > height) {
-        dead = true;
-      }
+      if (on_platform == false){
+        velocity = new PVector(0,0);
+      } 
+      
     } else {
       setHighscore();
     }
+    
 
   }
   
@@ -52,6 +54,7 @@ class Player {
       img = loadImage("data/Images/PlayerDown.png");
       
     }
+    
   }
   
   void setHighscore() {

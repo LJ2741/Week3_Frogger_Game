@@ -5,8 +5,8 @@ class Cars {
   
   Cars(int x,int y) {
     pos = new PVector(x,y);
-    if (y == 1028 || y == 1284) {
-      img = loadImage("data/Images/carFlipped.png");
+    if (y == 614) {
+      img = loadImage("data/Images/car2.png");
       velocity = new PVector(-2,0);
     } else {
       img = loadImage("data/Images/car.png");
